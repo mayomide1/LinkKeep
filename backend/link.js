@@ -22,7 +22,7 @@ const linkURLSchema = new mongoose.Schema(
 
 const labelSchema = new mongoose.Schema(
   {
-    name: {
+    labelName: {
       type: String,
       required: true,
       trim: true,

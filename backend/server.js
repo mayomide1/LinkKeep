@@ -9,20 +9,20 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-app.get("/upload/label", async (req, res) => {
+app.get("/labels", async (req, res) => {
     try{
-        const label = await Label.find()
-        res.status(200).json(label)
+        const labels = await Label.find()
+        res.status(200).json(labels)
 
     }catch(error){
         res.status(500).json({error: error.message})
     }
 })
 
-app.post("/upload/label", async (req, res) => {
+app.post("/label", async (req, res) => {
     try{
         const label = await Label.create({
-            name: req.body.label,
+            labelName: req.body.labelName,
             link:[],
             date: new Date().toLocaleDateString("en-Ca")
         })
@@ -32,6 +32,95 @@ app.post("/upload/label", async (req, res) => {
         res.status(500).json({error: error.message})
     }
 
+})
+
+app.delete("/label/:labelId", async (req, res) => {
+    try{
+        const {labelId} = req.params
+        const label = await Label.findByIdAndDelete(labelId)
+
+        if(!label){
+            res.status(400).json({message: "Label not found"})
+            return
+        }
+
+        res.status(200).json({label, message: "Label has been deleted successfully"})
+
+    }catch(error){
+        res.status(500).json({error: error.message})
+    }
+})
+
+app.get("/label/:labelId/links", async(req, res) => {
+      try{
+        const {labelId} = req.params
+        const label = await Label.findById(labelId)
+        res.status(200).json(label)
+
+    }catch(error){
+       res.status(500).json({error: error.message}) 
+    }  
+})
+
+app.put("/label/:labelId/links", async (req, res) => {
+    try{
+        const {linkURL, linkName} = req.body
+        const {labelId} = req.params
+        const label = await Label.findById(labelId)
+
+        if (!label){
+            res.status(200).json({message: "label not found"})
+            return
+        }
+
+        if(!linkURL){
+            res.status(400).json({message: "Enter a URL"})
+            return
+        }
+
+        label.links.push({
+            url: linkURL, 
+            linkName: linkName,
+            date: new Date().toLocaleDateString("en-Ca")
+        })
+
+        await label.save()
+
+        res.status(200).json(label)
+
+    }catch(error){
+       res.status(500).json({error: error.message}) 
+    }
+})
+
+app.delete("/label/:labelId/links/linkId", async(req, res) => {
+        try{
+        const {labelId, linkId} = req.params
+        const label = await Label.findById(labelId)
+
+        if (!label){
+            res.status(200).json({message: "label not found"})
+            return
+        }
+
+        if(!linkURL){
+            res.status(400).json({message: "Enter a URL"})
+            return
+        }
+
+        label.links.push({
+            url: linkURL, 
+            linkName: linkName,
+            date: new Date().toLocaleDateString("en-Ca")
+        })
+
+        await label.save()
+
+        res.status(200).json(label)
+
+    }catch(error){
+       res.status(500).json({error: error.message}) 
+    }
 })
 
 const PORT = process.env.port
