@@ -1,0 +1,331 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
+
+/* ---------- Tokens ---------- */
+.app {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --ink: #14161a;
+  --ink-soft: #5b616b;
+  --ink-faint: #9096a0;
+  --line: #e6e8ec;
+  --accent: #3b4cf0;
+  --accent-hover: #2d3bd0;
+  --accent-soft: #eef0ff;
+  --danger: #d6384a;
+  --danger-soft: #fdecee;
+  --radius: 12px;
+  --radius-sm: 8px;
+
+  box-sizing: border-box;
+  max-width: 640px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 56px 20px 80px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app *,
+.app *::before,
+.app *::after {
+  box-sizing: border-box;
+}
+
+/* ---------- Headings ---------- */
+.page-header {
+  margin-bottom: 28px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.page-subtitle {
+  margin: 6px 0 0;
+  color: var(--ink-soft);
+}
+
+.meta {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink-faint);
+}
+
+/* ---------- Inputs ---------- */
+.input {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.input::placeholder {
+  color: var(--ink-faint);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.btn-ghost {
+  color: var(--ink-soft);
+}
+
+.btn-ghost:hover {
+  background: var(--line);
+  color: var(--ink);
+}
+
+.btn-danger {
+  color: var(--danger);
+}
+
+.btn-danger:hover {
+  background: var(--danger-soft);
+}
+
+.label-actions .btn,
+.link-actions .btn {
+  height: 34px;
+  padding: 0 12px;
+  font-size: 13px;
+}
+
+/* ---------- Create bar ---------- */
+.create-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+/* ---------- Label list ---------- */
+.label-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.label-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.label-card:hover {
+  border-color: var(--accent);
+}
+
+.label-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.label-info {
+  min-width: 0;
+}
+
+.label-name {
+  margin: 0 0 4px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.label-count {
+  margin: 0 0 8px;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.label-count-number {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ---------- Detail view ---------- */
+.detail-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.detail-header .btn-ghost {
+  height: 34px;
+  margin-left: -12px;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.link-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.link-form .btn-primary {
+  align-self: flex-start;
+}
+
+/* ---------- Link list ---------- */
+.link-list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.link-list:has(.empty-state) {
+  border: none;
+  background: transparent;
+}
+
+.link-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+}
+
+.link-item + .link-item {
+  border-top: 1px solid var(--line);
+}
+
+.link-info {
+  min-width: 0;
+}
+
+.link-anchor {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.link-anchor:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.link-actions,
+.label-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 4px;
+}
+
+/* ---------- Empty state ---------- */
+.empty-state {
+  padding: 40px 20px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.empty-text {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 520px) {
+  .app {
+    padding-top: 36px;
+  }
+
+  .create-bar {
+    flex-direction: column;
+  }
+
+  .create-bar .btn {
+    width: 100%;
+  }
+
+  .link-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
