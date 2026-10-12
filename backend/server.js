@@ -81,6 +81,36 @@ app.get("/label/:labelId/links", async (req, res) => {
   }
 });
 
+app.put("/label/:labelId/links", async (req, res) => {
+  try {
+    const { linkURL, linkName } = req.body;
+    const { labelId } = req.params;
+    const label = await Label.findById(labelId);
+
+    if (!label) {
+      res.status(200).json({ message: "label not found" });
+      return;
+    }
+
+    if (!linkURL) {
+      res.status(400).json({ message: "Enter a URL" });
+      return;
+    }
+
+    label.links.push({
+      url: linkURL,
+      linkName: linkName,
+      date: new Date().toLocaleDateString("en-Ca"),
+    });
+
+    await label.save();
+
+    res.status(200).json(label);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.delete("/label/:labelId/links/:linkId", async (req, res) => {
   try {
     const { labelId, linkId } = req.params;
