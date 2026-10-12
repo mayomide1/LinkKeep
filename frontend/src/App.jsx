@@ -25,6 +25,7 @@ const App = () => {
     try {
       const response = await axios.get(`${url}/labels`);
       setAllLabels(response.data);
+      return response.data;
     } catch (err) {
       console.error(err.message);
     }
@@ -75,36 +76,41 @@ const App = () => {
     }
   }
 
-  async function handleSaveURL(labelId) {
+async function handleSaveURL(labelId) {
+  try {
     try {
-      if (!linkURL.includes("http")) {
-        alert("Enter a valid URL (must start with http:// or https://)");
-        return;
-      }
-      let finalName = linkName.trim();
-      if (!finalName) {
-        try {
-          const link = new URL(linkURL);
-          finalName = link.hostname;
-        } catch {
-          finalName = linkURL;
-        } finally {
-          setLinkURL("");
-          setLinkName("");
-        }
-      }
-
-      const payload = { linkURL, linkName: finalName };
-      setSavingUrl(true);
-      await axios.put(`${url}/label/${labelId}/links`, payload);
-      alert("The URL has been saved successfully");
-      await renderLabels();
-    } catch (err) {
-      console.error(err.message);
-    } finally {
-      setSavingUrl(false);
+      new URL(linkURL);
+    } catch {
+      alert("Enter a valid URL");
+      return;
     }
+
+    let finalName = linkName.trim();
+    if (!finalName) {
+      try {
+        finalName = new URL(linkURL).hostname;
+      } catch {
+        finalName = linkURL;
+      }
+    }
+
+    const payload = { linkURL, linkName: finalName };
+    setSavingUrl(true);
+    await axios.put(`${url}/label/${labelId}/links`, payload);
+    alert("The URL has been saved successfully");
+
+    const labels = await renderLabels();
+    const updated = labels?.find((l) => l._id === labelId);
+    if (updated) setLabel(updated);
+
+    setLinkURL("");
+    setLinkName("");
+  } catch (err) {
+    console.error(err.message);
+  } finally {
+    setSavingUrl(false);
   }
+}
 
   async function deleteLinkURL(labelId, linkId) {
     try {
