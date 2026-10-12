@@ -107,7 +107,7 @@ app.delete("/label/:labelId/links/:linkId", async (req, res) => {
   }
 });
 
-const PORT = process.env.port;
+const PORT = process.env.port || 5000;
 
 const dns = require("dns");
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
